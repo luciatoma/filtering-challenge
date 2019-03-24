@@ -4,9 +4,35 @@
   border: 1px solid $gray1;
   border-radius: 4px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin: 20px 10px;
-  padding: 10px;
+  padding: 20px;
+
+  &:hover {
+    border: 1px solid $blue1;
+    box-shadow: 10px 10px 65px -25px rgba(0, 0, 0, 0.75);
+    cursor: pointer;
+
+    :local(.iconDelete) {
+      display: block;
+    }
+  }
+
+  :local(.iconDelete) {
+    display: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: auto;
+
+    &:hover {
+      color: $blue1;
+    }
+  }
+}
+
+:local(.content) {
+  display: flex;
+  flex-direction: column;
 }
 
 :local(.info) {

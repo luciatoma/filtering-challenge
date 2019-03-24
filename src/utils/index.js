@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import _ from 'lodash';
 
 // searching in both job title and organization name
@@ -13,5 +14,12 @@ const filterResults = (jobs, string) => {
   return results;
 };
 
-// eslint-disable-next-line import/prefer-default-export
-export { filterResults };
+// generate a unique key for react mapping and localstorge identification
+const generateUniqueKey = (job) => {
+  const { job_title, organization_name, location_coordinates } = job;
+  return `${job_title}-${organization_name}-${location_coordinates[0]}-${location_coordinates[1]}`
+    .toLocaleLowerCase()
+    .replace(/\s/g, '');
+};
+
+export { filterResults, generateUniqueKey };
