@@ -1,7 +1,9 @@
 /* eslint-disable camelcase */
 import React, { Component } from 'react';
-import { getJobs } from '../../../services/api';
 
+import { getJobs } from '../../../services/api';
+import { filterResults } from '../../../utils';
+import Search from '../../generic/SearchInput';
 import JobCard from '../../generic/JobCard';
 
 class HomePage extends Component {
@@ -9,22 +11,30 @@ class HomePage extends Component {
     super(props);
 
     this.state = {
-      jobs: [],
+      allJobs: [],
+      searchedString: '',
     };
   }
 
   componentDidMount() {
-    getJobs().then((jobs) => {
-      this.setState({ jobs });
-    });
+    getJobs().then(allJobs => this.setState({ allJobs }));
   }
 
+  handleSearch = (string) => {
+    const { searchedString } = this.state;
+    // avoid unnecessary render if the user searches for the same string
+    if (string !== searchedString) this.setState({ searchedString: string });
+  };
+
   render() {
-    const { jobs } = this.state;
-    console.log('jobs', jobs);
+    const { allJobs, searchedString } = this.state;
+
+    const results = filterResults(allJobs, searchedString);
+
     return (
       <div>
-        {jobs.map(({ job_title, organization_name }) => (
+        <Search handleSearch={this.handleSearch} />
+        {results.map(({ job_title, organization_name }) => (
           <JobCard jobTitle={job_title} orgName={organization_name} />
         ))}
       </div>

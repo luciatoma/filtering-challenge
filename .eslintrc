@@ -1,11 +1,12 @@
-
 {
-    "extends": ["airbnb", "plugin:jsx-a11y/recommended"],
-    "plugins": ["jsx-a11y"],
-    "env": {
-      "jest": true
-    },
-    "rules": {
-      "react/jsx-filename-extension": [1, { "extensions": [".js"] }]
-    }
+  "extends": ["airbnb", "plugin:jsx-a11y/recommended"],
+  "plugins": ["jsx-a11y"],
+  "parser": "babel-eslint",
+  "env": {
+    "jest": true
+  },
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js"] }],
+    "react/require-default-props": "off"
   }
+}

@@ -23,7 +23,7 @@ const JobCard = (props) => {
 
 JobCard.propTypes = {
   jobTitle: PropTypes.string.isRequired,
-  orgName: PropTypes.string.isRequired,
+  orgName: PropTypes.string,
 };
 
 export default JobCard;
