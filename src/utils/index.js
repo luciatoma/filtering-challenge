@@ -2,7 +2,7 @@
 import _ from 'lodash';
 
 // searching in both job title and organization name
-const filterResults = (jobs, string) => {
+const filterResults = (jobs, string, sorting) => {
   let results = jobs;
   if (!_.isEmpty(string)) {
     results = results.filter(
@@ -11,6 +11,15 @@ const filterResults = (jobs, string) => {
           && item.organization_name.toLowerCase().includes(string.toLowerCase())),
     );
   }
+
+  if (sorting) {
+    results.sort((a, b) => {
+      if (a.job_title.toLowerCase() < b.job_title.toLowerCase()) return sorting === 'asc' ? -1 : 1;
+      if (a.job_title.toLowerCase() > b.job_title.toLowerCase()) return sorting === 'asc' ? 1 : -1;
+      return 0;
+    });
+  }
+
   return results;
 };
 

@@ -1,5 +1,28 @@
+@import "../../../styles/constants.scss";
+
+:local(.wrapper) {
+  padding: 20px;
+}
+
 :local(.modal) {
   .ant-modal-footer {
     display: none;
+  }
+
+  .anticon-close:hover {
+    color: $blue1;
+  }
+}
+
+:local(.modalTitle) {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  word-break: break-all;
+  width: calc(100% - 40px);
+
+  :local(.info) {
+    color: $blue1;
+    font-weight: 600;
   }
 }

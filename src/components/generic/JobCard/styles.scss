@@ -5,24 +5,22 @@
   border-radius: 4px;
   display: flex;
   flex-direction: row;
-  margin: 20px 10px;
+  font-size: 14px;
+  margin: 20px 0;
   padding: 20px;
 
   &:hover {
     border: 1px solid $blue1;
     box-shadow: 10px 10px 65px -25px rgba(0, 0, 0, 0.75);
     cursor: pointer;
-
-    :local(.iconDelete) {
-      display: block;
-    }
+    transition: all 0.4s;
   }
 
   :local(.iconDelete) {
-    display: none;
     cursor: pointer;
     font-size: 16px;
     margin-left: auto;
+    padding-left: 10px;
 
     &:hover {
       color: $blue1;
@@ -33,6 +31,7 @@
 :local(.content) {
   display: flex;
   flex-direction: column;
+  word-break: break-all;
 }
 
 :local(.info) {
