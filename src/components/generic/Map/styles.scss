@@ -1,0 +1,13 @@
+@import "../../../styles/constants.scss";
+
+:local(.wrapper) {
+  height: 400px;
+  width: 100%;
+}
+
+:local(.iconPin) {
+  color: $red1 !important;
+  font-size: 30px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+}

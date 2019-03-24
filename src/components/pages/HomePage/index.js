@@ -1,11 +1,14 @@
 /* eslint-disable camelcase */
 import React, { Component } from 'react';
+import { Modal } from 'antd';
 import ls from 'local-storage';
 
+import styles from './styles.scss';
 import { getJobs } from '../../../services/api';
 import { filterResults, generateUniqueKey } from '../../../utils';
 import Search from '../../generic/SearchInput';
 import JobCard from '../../generic/JobCard';
+import Map from '../../generic/Map';
 
 const localStorageKey = 'deletedJobs';
 
@@ -17,6 +20,7 @@ class HomePage extends Component {
       allJobs: [],
       searchedString: '',
       deletedJobs: ls.get(localStorageKey) || [],
+      shownOnMap: false,
     };
   }
 
@@ -39,6 +43,10 @@ class HomePage extends Component {
     this.setState({ deletedJobs: newDeletedJobs }, () => ls.set(localStorageKey, newDeletedJobs));
   };
 
+  onShowMap = (location) => {
+    this.setState({ shownOnMap: location });
+  };
+
   renderJobs = () => {
     const { allJobs, searchedString, deletedJobs } = this.state;
     const isDeleted = (job) => {
@@ -55,15 +63,27 @@ class HomePage extends Component {
         jobTitle={job.job_title}
         orgName={job.organization_name}
         onDelete={() => this.handleDelete(generateUniqueKey(job))}
+        onShowMap={() => this.onShowMap(job.location_coordinates)}
       />
     ));
   };
 
   render() {
+    const { shownOnMap } = this.state;
     return (
       <div>
         <Search handleSearch={this.handleSearch} />
         {this.renderJobs()}
+        {shownOnMap && (
+          <Modal
+            className={styles.modal}
+            visible
+            centered
+            onCancel={() => this.setState({ shownOnMap: null })}
+          >
+            <Map latitude={shownOnMap[0]} longitude={shownOnMap[1]} />
+          </Modal>
+        )}
       </div>
     );
   }
