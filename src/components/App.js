@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import HomePage from './pages/HomePage';
 
-class App extends Component {
-  render() {
-    return <div>Hello</div>;
-  }
-}
+const App = () => (
+  <div>
+    <HomePage />
+  </div>
+);
 
 export default App;
