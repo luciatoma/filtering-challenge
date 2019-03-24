@@ -10,6 +10,7 @@ const JobCard = (props) => {
   const {
     jobTitle, orgName, onDelete, onShowMap,
   } = props;
+
   return (
     <div className={styles.wrapper} onClick={onShowMap}>
       <div className={styles.content}>

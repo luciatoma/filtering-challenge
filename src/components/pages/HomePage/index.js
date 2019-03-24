@@ -14,8 +14,8 @@ import Map from '../../generic/Map';
 const localStorageKey = 'deletedJobs';
 
 class HomePage extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.state = {
       allJobs: [],
@@ -24,12 +24,20 @@ class HomePage extends Component {
       shownOnMap: false,
       sorting: null,
     };
+
+    this.mounted = false;
   }
 
-  componentDidMount() {
-    getJobs().then((jobs) => {
-      this.setState({ allJobs: jobs });
-    });
+  async componentDidMount() {
+    this.mounted = true;
+    const allJobs = await getJobs();
+
+    // avoid jest error with "setState on unmounted component"
+    if (this.mounted) this.setState({ allJobs });
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   handleSearch = (string) => {
@@ -42,7 +50,7 @@ class HomePage extends Component {
 
   handleDelete = (event, keyToDelete) => {
     const { deletedJobs } = this.state;
-    console.log('ev', event);
+    // prevent the map from opening when clicking the delete button
     event.preventDefault();
     event.stopPropagation();
     if (deletedJobs.includes(keyToDelete)) return;

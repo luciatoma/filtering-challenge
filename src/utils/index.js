@@ -3,7 +3,8 @@ import _ from 'lodash';
 
 // searching in both job title and organization name
 const filterResults = (jobs, string, sorting) => {
-  let results = jobs;
+  // clone it so we don't modify the original
+  let results = [...jobs];
   if (!_.isEmpty(string)) {
     results = results.filter(
       item => item.job_title.toLowerCase().includes(string.toLowerCase())
